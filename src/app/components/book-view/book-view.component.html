@@ -1,0 +1,43 @@
+
+<h2 mat-dialog-title >View Book</h2>
+
+<mat-dialog-content>
+    <mat-card class="app-book-view">
+        <mat-card-header class="my-3 p-0">
+            <div class="book-image-title d-flex">
+                <div class="book-img-box p-1 me-4 d-flex align-items-center justify-content-center"
+              >
+                <img
+                  *ngIf="book.bookCover;"
+                  class="book-img-content 1"
+                  [src]="book.bookCover"
+                  width="76" height="76"
+                  alt="Book image"
+                />
+                <mat-icon *ngIf="!book.bookCover">image</mat-icon>
+              </div>
+              <div>
+                <mat-card-title class="fs-18">{{book.title}}</mat-card-title>
+                <mat-card-subtitle>{{book.author}}</mat-card-subtitle>
+              </div>
+            </div>
+      
+   
+        </mat-card-header>
+        <mat-card-content class="my-2 p-0">
+            <ng-container *ngIf="book.descriptions && book.descriptions.length; else noDescription">
+                <p>{{book.descriptions[0].text}}</p>
+            </ng-container>
+            <ng-template #noDescription>
+                <div>
+                    There is no description
+                </div>
+            </ng-template>
+
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions class="justify-content-end mb-3 me-3">
+  <button mat-raised-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>
+

@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+$roboto-typography: mat.define-typography-config(
+  $font-family: "Roboto",
+);
+
+@include mat.button-typography($roboto-typography);
+@include mat.typography-hierarchy($roboto-typography);

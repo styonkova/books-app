@@ -1,0 +1,11 @@
+@import '../colors';
+.mat {
+    &-mdc-list-item {
+        &.selected {
+            background-color: $color-bg-purple;
+            .mdc-list-item__primary-text {
+                color: $color-primary;
+            } 
+        }
+    }
+}

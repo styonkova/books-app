@@ -1,0 +1,44 @@
+<mat-toolbar color="primary" class="app-toolbar p-0 align-items-center">
+    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu" class="p-0 ms-1 me-3">
+        <mat-icon class="mt-3">menu</mat-icon>
+    </button>
+    <div class="logo-img-bov d-flex align-items-end">
+        <div class="logo-img me-2">
+            <img src="assets/images/open-book-logo.png" alt="" >
+        </div>
+
+        <span >Open book</span>
+    </div>
+    <span class="toolbar-item-spacer"></span>
+    <button mat-icon-button matTooltip="Like">
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Share">
+        <mat-icon>share</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+    <mat-sidenav #sidenav mode="side"  class="app-sidenav" opened="">
+        <mat-nav-list [disableRipple]="true" class="app-menu-list">
+            <mat-list-item class="app-menu-item mb-3" routerLinkActive="selected" >
+                <div class="d-flex align-items-center">
+                    <mat-icon class="me-2">dashboard</mat-icon><span>Dashboard</span>
+                </div>
+                
+            </mat-list-item>
+            <mat-list-item routerLinkActive="selected" [routerLink]="'/books'" class="app-menu-item mb-3">
+                <div class="d-flex align-items-center">
+                    <mat-icon class="me-2">books</mat-icon><span>Books</span>
+                </div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="p-5">
+            <router-outlet>
+            </router-outlet>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container> 

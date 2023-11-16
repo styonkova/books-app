@@ -1,0 +1,112 @@
+
+<h2 mat-dialog-title >Add Book</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="bookForm">
+    <div class="row mt-3">
+
+      <div class="col-6 mb-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required type="text" >
+          <mat-error
+          *ngIf="bookTitleControl.invalid"
+        >
+          <ng-container
+            *ngIf="
+              bookTitleControl.hasError('required') ||
+              bookTitleControl.hasError('onlyWhiteSpace')
+            "
+          >
+           Title is required
+          </ng-container>
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Author</mat-label>
+          <input matInput placeholder="Author" formControlName="author" required type="text" >
+          <mat-error
+          *ngIf="bookAuthorControl.invalid"
+        >
+          <ng-container
+            *ngIf="bookAuthorControl.hasError('onlyLetters')"
+          >
+          Only letters are allowed
+          </ng-container>
+          <ng-container
+            *ngIf="
+              bookAuthorControl.hasError('required') ||
+              bookAuthorControl.hasError('onlyWhiteSpace')
+            "
+          >
+           Author is required
+          </ng-container>
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ISBN</mat-label>
+          <input matInput placeholder="ISBN" 
+          formControlName="isbn" 
+          mask="000-0000-00-0"
+          [specialCharacters]="['-']"
+          [dropSpecialCharacters]="false"
+          [validation]="true"
+          [placeholder]="isbnNumberPrefix"
+          [prefix]="isbnNumberPrefix"
+          required type="text" >
+          <mat-error
+          *ngIf="bookISBNControl.invalid"
+        >
+          <ng-container
+            *ngIf="
+              bookISBNControl.hasError('required')"
+          >
+           ISBN is required
+          </ng-container>
+          <ng-container
+          *ngIf="
+            bookISBNControl.hasError('minlength') ||
+            bookISBNControl.hasError('maxlength') ||
+            bookISBNControl.hasError('mask')
+          "
+        >
+        ISBN format is with 13 symbols
+      
+        </ng-container>
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 mb-1">
+        <div class="img-cover-field d-flex flex-column align-items-center py-3 px-2">
+          <div class="mb-3 fw-500">Attach book cover</div>
+          <div
+          class="content-image d-flex flex-column align-items-center justify-content-center p-1"
+          (click)="fileInput.click()"
+        >
+        <ng-container *ngIf="bookCoverFormControl.value; else noImgTemplate">
+          <img class="cover-img" width="72" height="72" [src]="bookCoverFormControl.value" alt="'cover'" />
+        </ng-container>
+        <ng-template #noImgTemplate>
+          <mat-icon class="fs-20" class="img-icon">add_photo_alternate</mat-icon>
+        </ng-template>
+          <input matInput formControlName="bookCover" type="text" hidden>
+          <input #fileInput type="file" hidden  (change)="onFileChange($event)" accept="image/*">
+        </div>
+        </div>
+
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="justify-content-end mb-3 me-3">
+
+  <button mat-raised-button (click)="onCancelClick()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSaveClick()" [disabled]="bookForm.invalid">Add</button>
+
+</mat-dialog-actions>
+

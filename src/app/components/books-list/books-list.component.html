@@ -1,0 +1,126 @@
+
+
+<div class="app-page-actions d-flex  mb-3 align-items-center">
+  <div class="filter-section flex-1">
+    <form class="search-form">
+      <div class="d-flex align-items-start">
+        <div>
+          <mat-form-field appearance="outline" class="search-bar">
+            <mat-label>Search</mat-label>
+            <input matInput (keydown.enter)="onSearch($event, false)"
+            placeholder="Type and enter for search"
+            [formControl]="searchedText">
+            <mat-icon matPrefix>search</mat-icon>
+            <button matSuffix mat-icon-button   disableRipple *ngIf="searchedTextControl" type="button" 
+             (click)="onSearch($event, true)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <button mat-mini-fab matTooltip="Add book" color="primary"
+     aria-label="Example fab with a heart icon" (click)="openModal()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="getBooksList$ | async as books">
+    <ng-container >
+      <table
+        aria-describedby=""
+        table
+        mat-table
+        [dataSource]="dataSource"
+        class="table-data w-100"
+        matSort
+        [matSortDisableClear]="true"
+        [matSortActive]="'author'"
+        [matSortDirection]="'asc'"
+        (matSortChange)="onSortOrders($event)"
+      > 
+        <ng-container [matColumnDef]="columnsNames.Title">
+          <th
+            mat-header-cell
+            mat-sort-header
+            *matHeaderCellDef
+            class="text-uppercase fw-bold"
+          >
+            Title
+
+          </th>
+          <td mat-cell *matCellDef="let book">
+            <div class="d-flex align-items-center ">
+              <div
+                class="book-img-box p-1 me-4 d-flex align-items-center justify-content-center"
+              >
+                <img
+                  *ngIf="book.bookCover;"
+                  class="book-img-content 1"
+                  [src]="book.bookCover"
+                  width="44" height="44"
+                  alt="Book image"
+                />
+                <mat-icon *ngIf="!book.bookCover">image</mat-icon>
+              </div>
+              <div>{{book.title}}</div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="columnsNames.Author">
+          <th
+            mat-header-cell
+            mat-sort-header
+            *matHeaderCellDef
+            class="text-uppercase fw-bold"
+          >
+            Author
+          </th>
+          <td mat-cell *matCellDef="let book">{{ book.author }}</td>
+        </ng-container>
+        <ng-container [matColumnDef]="columnsNames.ISBN">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="text-uppercase fw-bold"
+          >
+            ISBN
+          </th>
+          <td mat-cell *matCellDef="let book">{{ book.isbn }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="text-uppercase fw-bold text-end"
+          >
+          Actions
+        </th>
+          <td mat-cell *matCellDef="let book" class="text-end">
+            <div class="table-data-actions d-inline-block">
+              <button mat-stroked-button color="primary" (click)="viewDetails(book.id)">View</button>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="d-flex justify-content-end align-items-center mt-3">
+        <mat-paginator
+        [length]="totalItems"
+        [pageSize]="requestParams.pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+      </div>
+    </ng-container>
+  
+
+  </ng-container>
+  
+

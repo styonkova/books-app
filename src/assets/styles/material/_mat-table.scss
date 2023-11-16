@@ -1,0 +1,41 @@
+@import '../colors';
+
+.table-data {
+
+  &-actions {
+    min-width: 81px;
+  }
+
+  thead {
+    tr {
+      background-color: $color-bg-purple;
+      height: 26px;
+
+      th {
+        text-transform: uppercase;
+        color: $color-dark-slate-grey;
+        font-size: 13px;
+        border-bottom-width: 0px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      height: 72px;
+      td {
+        border-bottom-width: 1px;
+        border-color: $color-light-silver;
+        font-weight: 400;
+        font-size: 15px;
+        color: $color-dark-slate-grey;
+      }
+      &:nth-child(odd) {
+        .mat-cell {
+          border-width: 0px;
+        }
+      }
+    }
+  }
+
+}

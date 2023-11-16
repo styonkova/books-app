@@ -1,0 +1,28 @@
+.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover
+ .mdc-notched-outline .mdc-notched-outline__notch {
+    border-color: transparent
+}
+.mat-mdc-form-field.search-bar {
+   width: 260px;
+
+    .mat-mdc-text-field-wrapper {
+        height: 44px;
+        .mat-mdc-form-field-flex {
+            height: 100%;
+            .mat-mdc-floating-label {
+                top: 22px;
+            }
+        }
+        &.mdc-text-field--outlined {
+            .mat-mdc-form-field-infix {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+        }
+        }
+        .mat-mdc-form-field-icon-suffix {
+            button:hover {
+                background: transparent;
+            }
+        }
+}
